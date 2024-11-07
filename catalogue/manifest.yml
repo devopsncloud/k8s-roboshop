@@ -14,7 +14,7 @@ data:
 apiVersion: apps/v1 
 kind: Deployment
 metadata:
-  name: mongodb
+  name: catalogue
   namespace: roboshop
   labels:
     app: catalogue
@@ -43,11 +43,6 @@ spec:
         envFrom:
         - configMapRef:
             name:catalogue
-
-
-
-
-
 
 ---
 
