@@ -1,0 +1,57 @@
+
+
+---
+
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: web
+  namespace: roboshop
+  labels:
+    web: web
+    project: roboshop
+    tier: web
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels: #labels used to find pods
+      web: web
+      project: roboshop
+      tier: web
+
+  template: #it's the pod definition section 
+    metadata:
+      labels: #pod labels
+        web: web
+        project: roboshop
+        tier: web
+    spec:
+      containers: 
+      - name: web
+        image: dockerlearnsrikanth/web:v1
+        imagePullPolicy: Always
+        # envFrom:
+        # - configMapRef:
+        #     name: web
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: web
+  namespace: roboshop
+spec:
+  type: LoadBalancer
+  selector:
+    web: web
+    project: roboshop
+    tier: web
+  ports:
+    - protocol: TCP
+      port: 80 #serviceport
+      targetPort: 80 #containerport
+
+
+
