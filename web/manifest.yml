@@ -124,6 +124,11 @@ spec:
       - name: web
         image: dockerlearnsrikanth/web:v1
         imagePullPolicy: Always
+        volumeMounts:
+        - name: nginx-conf
+          mountPath: /etc/nginx/nginx.conf
+          subPath: nginx.conf
+          readOnly: true  
       
       volumes:
       - name: nginx-conf
@@ -132,11 +137,7 @@ spec:
           items:
           - key: nginx.conf
             path: nginx.conf
-        volumeMounts:
-        - name: nginx-conf
-          mountPath: /etc/nginx/nginx.conf
-          subPath: nginx.conf
-          readOnly: true  
+        
       
         # envFrom:
         # - configMapRef:
