@@ -121,6 +121,10 @@ spec:
         tier: web
     spec:
       containers: 
+      - name: web
+        image: dockerlearnsrikanth/web:v1
+        imagePullPolicy: Always
+      
       volumes:
       - name: nginx-conf
         configMap: 
@@ -128,14 +132,12 @@ spec:
           items:
           - key: nginx.conf
             path: nginx.conf
-      - name: web
-        image: dockerlearnsrikanth/web:v1
-        imagePullPolicy: Always
         volumeMounts:
         - name: nginx-conf
           mountPath: /etc/nginx/nginx.conf
           subPath: nginx.conf
-          readOnly: true 
+          readOnly: true  
+      
         # envFrom:
         # - configMapRef:
         #     name: web
